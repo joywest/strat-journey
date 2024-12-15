@@ -6,9 +6,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { Upload } from "lucide-react";
+import { Upload, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const MAX_FILE_SIZE = 5000000; // 5MB
+const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_FILE_TYPES = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
 
 const formSchema = z.object({
@@ -31,6 +32,7 @@ const formSchema = z.object({
 
 export const ApplicationForm = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,6 +55,16 @@ export const ApplicationForm = () => {
   return (
     <div className="min-h-screen bg-[#0f172a] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
+        <div className="flex items-center mb-6">
+          <Button
+            variant="ghost"
+            className="text-white hover:text-white/80"
+            onClick={() => navigate('/')}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Retour
+          </Button>
+        </div>
         <h1 className="text-4xl font-bold text-center mb-8 text-white">Postulez chez Strat Market</h1>
         <div className="bg-[#1e293b] p-8 rounded-lg shadow-xl border border-[#334155]">
           <Form {...form}>
