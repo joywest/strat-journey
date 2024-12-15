@@ -99,7 +99,7 @@ export const ApplicationForm = () => {
               <FormField
                 control={form.control}
                 name="cv"
-                render={({ field: { onChange, ...field } }) => (
+                render={({ field: { onChange, value, ...field } }) => (
                   <FormItem>
                     <FormLabel className="text-white">CV (PDF, DOC, DOCX - Max 5MB)</FormLabel>
                     <FormControl>
@@ -107,7 +107,9 @@ export const ApplicationForm = () => {
                         <Input
                           type="file"
                           accept=".pdf,.doc,.docx"
-                          onChange={(e) => onChange(e.target.files)}
+                          onChange={(e) => {
+                            onChange(e.target.files);
+                          }}
                           className="bg-[#0f172a] border-[#334155] text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#334155] file:text-white hover:file:bg-[#475569]"
                           {...field}
                         />
