@@ -6,19 +6,19 @@ const testimonials = [
     name: "Jean Makaya",
     role: "Trader Senior",
     content: "Grâce à Strat Market, je suis passé de novice à trader professionnel en moins d'un an. La formation est intensive mais très enrichissante.",
-    image: "/placeholder.svg"
+    image: "/testimonial1.jpg"
   },
   {
     name: "Marie Bouesso",
     role: "Trader Junior",
     content: "La qualité de la formation et l'accompagnement sont exceptionnels. J'ai maintenant un emploi stable et passionnant.",
-    image: "/placeholder.svg"
+    image: "/testimonial2.jpg"
   },
   {
     name: "Patrick Moungali",
     role: "Trader Senior",
     content: "Strat Market m'a donné toutes les clés pour réussir. L'environnement est professionnel et stimulant.",
-    image: "/placeholder.svg"
+    image: "/testimonial3.jpg"
   }
 ];
 
@@ -34,7 +34,7 @@ export const Testimonials = () => {
             <Card key={index} className="animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
               <CardHeader>
                 <div className="flex items-center gap-4">
-                  <Avatar>
+                  <Avatar className="h-16 w-16 border-2 border-primary">
                     <AvatarImage src={testimonial.image} alt={testimonial.name} />
                     <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
                   </Avatar>
