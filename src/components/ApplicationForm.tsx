@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Upload, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_FILE_TYPES = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
@@ -33,6 +34,8 @@ const formSchema = z.object({
 export const ApplicationForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,13 +46,57 @@ export const ApplicationForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-    toast({
-      title: "Candidature envoyée !",
-      description: "Nous vous contacterons bientôt.",
-    });
-    form.reset();
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
+    
+    try {
+      // Convert CV to base64 for sending via Zapier
+      const file = values.cv[0];
+      const reader = new FileReader();
+      
+      reader.onload = async () => {
+        const base64CV = reader.result?.toString().split(',')[1];
+        
+        await fetch("https://hooks.zapier.com/hooks/catch/YOUR_ZAPIER_WEBHOOK_ID/", {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fullName: values.fullName,
+            email: values.email,
+            phone: values.phone,
+            motivation: values.motivation,
+            cv: {
+              name: file.name,
+              type: file.type,
+              content: base64CV
+            },
+            type: "application",
+            to_email: "balleyajoyephraim@gmail.com"
+          }),
+        });
+
+        toast({
+          title: "Candidature envoyée !",
+          description: "Nous vous contacterons bientôt.",
+        });
+        
+        form.reset();
+      };
+
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi:", error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi de votre candidature.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -149,8 +196,12 @@ export const ApplicationForm = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full bg-[#0ea5e9] hover:bg-[#0284c7] text-white">
-                Envoyer ma candidature
+              <Button 
+                type="submit" 
+                className="w-full bg-[#0ea5e9] hover:bg-[#0284c7] text-white"
+                disabled={isLoading}
+              >
+                {isLoading ? "Envoi en cours..." : "Envoyer ma candidature"}
               </Button>
             </form>
           </Form>
