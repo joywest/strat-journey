@@ -3,14 +3,16 @@ import { ChartLine, Target, BookOpen, Users } from "lucide-react";
 
 export const InfoSection = () => {
   return (
-    <section className="py-16 bg-white text-gray-900 african-pattern">
+    <section className="py-16 bg-gradient-to-b from-white to-orange-50 text-gray-900">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Pourquoi Choisir Strat Market?</h2>
+        <h2 className="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-amber-500">
+          Pourquoi Choisir Strat Market?
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="bg-white/90 border border-gray-200 shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <Card className="card-hover bg-white/90 border-none shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-gray-900">
-                <Target className="h-6 w-6 text-orange-600" />
+                <Target className="h-6 w-6 text-orange-500" />
                 Expertise
               </CardTitle>
             </CardHeader>
@@ -21,10 +23,10 @@ export const InfoSection = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/90 border border-gray-200 shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <Card className="card-hover bg-white/90 border-none shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-gray-900">
-                <ChartLine className="h-6 w-6 text-orange-600" />
+                <ChartLine className="h-6 w-6 text-orange-500" />
                 Performance
               </CardTitle>
             </CardHeader>
@@ -35,10 +37,10 @@ export const InfoSection = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/90 border border-gray-200 shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <Card className="card-hover bg-white/90 border-none shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-gray-900">
-                <BookOpen className="h-6 w-6 text-orange-600" />
+                <BookOpen className="h-6 w-6 text-orange-500" />
                 Formation
               </CardTitle>
             </CardHeader>
@@ -49,10 +51,10 @@ export const InfoSection = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/90 border border-gray-200 shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <Card className="card-hover bg-white/90 border-none shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-gray-900">
-                <Users className="h-6 w-6 text-orange-600" />
+                <Users className="h-6 w-6 text-orange-500" />
                 Communauté
               </CardTitle>
             </CardHeader>
